@@ -85,7 +85,7 @@ impl<C: Clone + Connect + 'static> PullRequest<C> {
     }
 
     pub fn merge(&self) -> Future<serde_json::Value> {
-        self.github.put(&self.path("merge"), Vec::new())
+        self.github.put(&self.path("/merge"), Vec::new())
     }
 
     /// Return a reference to labels operations available for this pull request
