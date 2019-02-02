@@ -3,8 +3,8 @@ use std::collections::HashMap;
 use std::fmt;
 
 use hyper::client::connect::Connect;
-use url::form_urlencoded;
 use serde::{Deserialize, Serialize};
+use url::form_urlencoded;
 
 use crate::comments::Comments;
 use crate::issues::{IssueAssignees, IssueLabels, Sort as IssueSort, State};
@@ -82,6 +82,10 @@ impl<C: Clone + Connect + 'static> PullRequest<C> {
     /// Request a pull requests information
     pub fn get(&self) -> Future<Pull> {
         self.github.get(&self.path(""))
+    }
+
+    pub fn merge(&self) -> Future<serde_json::Value> {
+        self.github.put(&self.path("merge"), Vec::new())
     }
 
     /// Return a reference to labels operations available for this pull request
